@@ -45,11 +45,14 @@ unary ->        ( "-" | "!" ) unary | primary ;
 primary ->      "false" | "true" | IDENTIFIER | NUMBER | "nil" |
                 STRING | "(" expression ")" ;
 
-function -> IDENTIFIER "(" parameters? ")" ( "->" type )? block ;
+function -> IDENTIFIER "(" parameters? ")" ( "->" typeList )? block ;
 parameters -> IDENTIFIER ( "," IDENTIFIER )* ;
 arguments -> expression ( "," expression )* ;
 
 type -> IDENTIFIER ; // Will need to implement making more types based on what users define
+typeList -> "(" types ")" ;
+types -> ( type "," types) | type ; 
+
 NUMBER -> DIGIT+ ;
 STRING -> "\"" <any character excluding "\""> "\"" ;
 IDENTIFIER -> ALPHA ( ALPHA | DIGIT )* ;
